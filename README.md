@@ -69,4 +69,17 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-### react + less + axios + react-router-dom
+### 所用依赖
+
+###
+
+```
+  react:基础
+  less:支持less语法
+  axios:支持请求
+  react-router-dom(实现路由)
+  react-swipeable-views(实现轮播图)
+  react-swipeable-views-utils(实现指示器)
+  express(后台搭建)
+  cors(实现跨域)
+```
