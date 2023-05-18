@@ -21,7 +21,6 @@ const Swiper  = (props)=>{
             return(
               <div key={index} className="swiper-view">
                 <img src={ele} alt=""/>
-                {index}
               </div>
             )
           })
