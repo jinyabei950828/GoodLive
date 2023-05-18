@@ -1,8 +1,11 @@
 import React from "react";
+import CityHeader from "../../components/PubHeader";
 
 const City = ()=>{
   return(
-    <div>城市</div>
+    <div>
+      <CityHeader />
+    </div>
   )
 }
 
