@@ -4,6 +4,7 @@ import React from "react";
 import { HashRouter as Router,Routes,Route } from "react-router-dom";
 
 import City from "../pages/City";
+import Search from "../pages/Search";
 
 import Layout from "../pages/Layout";
 
@@ -12,6 +13,7 @@ const AppRouter = ()=>{
     <Router>
       <Routes>
         <Route path="/city" element={<City />} />
+        <Route path="/search/:keywords" element={<Search />} />
         <Route path="/*" element={<Layout />} />   
       </Routes>
     </Router>

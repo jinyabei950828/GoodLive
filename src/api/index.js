@@ -7,7 +7,8 @@ const base = {
 const path = {
   homehot1:"/api/home/hot1",
   homehot2:"/api/home/hot2",
-  cityUrl:"/api/aj/getcitycode"
+  cityUrl:"/api/aj/getcitycode",
+  search:"/api/search"
 }
 
 const api  = {
@@ -25,6 +26,12 @@ const api  = {
 
   getCityList(){
     return axios.get(path.cityUrl)
+  },
+
+  search(params){
+    return axios.get(base.baseUrl+path.search,{
+      params
+    })
   }
 }
 

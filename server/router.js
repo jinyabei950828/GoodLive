@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const homehot = require("./data/home/homeHot")
+const searchData = require("./data/search")
 const url = require("url")
 
 router.get("/home/hot1",(req,res)=>{
@@ -20,5 +21,16 @@ router.get("/home/hot2",(req,res)=>{
     city:cityName
   })
 })
+
+router.get("/search",(req,res)=>{
+  const search = url.parse(req.url,true).query.search
+  console.log(search)
+  res.send({
+    status:200,
+    result:searchData
+  })
+})
+
+
 
 module.exports =  router
