@@ -7,8 +7,7 @@ import Shop from "../pages/Main/Shop";
 import User from "../pages/Main/User";
 import BootomNav from "../components/BottomNav";
 
-const Layout = (props)=>{
-  console.log(props)
+const Layout = ()=>{
   return(
     <div>
       <BootomNav />

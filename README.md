@@ -82,4 +82,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
   react-swipeable-views-utils(实现指示器)
   express(后台搭建)
   cors(实现跨域)
+  redux(数据出差 store、reducers、actions)
+  react-redux
+  redux-devtools-extension
+  react-city-select(城市列表)
+  http-proxy-middleware
 ```

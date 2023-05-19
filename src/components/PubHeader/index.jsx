@@ -2,12 +2,12 @@ import React from "react";
 import "./style.less"
 import {useNavigate} from 'react-router-dom'
 
-const PubHeader = ()=>{
+const PubHeader = (props)=>{
 
   const navigate = useNavigate()
 
   function backHandle(){
-    navigate(-1)
+    navigate("/")
   }
 
   return(
@@ -15,7 +15,7 @@ const PubHeader = ()=>{
       <span className="back-icon" onClick={backHandle}>
         <i className="icon-chevron-left"></i>
       </span>
-      <h1>城市选择</h1>
+      <h1>{props.title}</h1>
     </div>
   )
 }
