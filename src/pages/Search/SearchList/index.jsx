@@ -24,6 +24,10 @@ const SearchList = (props)=>{
 
   useEffect(()=>{
     getSearchData()
+    return ()=>{
+      setSearchData([])
+      setHasMore(false)
+    }
   },[props.search])
 
   function loadMoreHandle(){

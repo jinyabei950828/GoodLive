@@ -8,7 +8,9 @@ const path = {
   homehot1:"/api/home/hot1",
   homehot2:"/api/home/hot2",
   cityUrl:"/api/aj/getcitycode",
-  search:"/api/search"
+  search:"/api/search",
+  details:"/api/details",
+  login:"/api/login"
 }
 
 const api  = {
@@ -32,6 +34,16 @@ const api  = {
     return axios.get(base.baseUrl+path.search,{
       params
     })
+  },
+
+  details(params){
+    return axios.get(base.baseUrl+path.details,{
+      params
+    })
+  },
+
+  login(params){
+    return axios.post(base.baseUrl+path.login,params)
   }
 }
 

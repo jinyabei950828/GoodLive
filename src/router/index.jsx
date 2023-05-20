@@ -5,6 +5,8 @@ import { HashRouter as Router,Routes,Route } from "react-router-dom";
 
 import City from "../pages/City";
 import Search from "../pages/Search";
+import Details from "../pages/Details";
+import Login from "../pages/Login";
 
 import Layout from "../pages/Layout";
 
@@ -13,6 +15,8 @@ const AppRouter = ()=>{
     <Router>
       <Routes>
         <Route path="/city" element={<City />} />
+        <Route path="/details/:id" element={<Details />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/search/:keywords" element={<Search />} />
         <Route path="/*" element={<Layout />} />   
       </Routes>

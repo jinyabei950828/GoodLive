@@ -86,5 +86,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
   react-redux
   redux-devtools-extension
   react-city-select(城市列表)
-  http-proxy-middleware
+  http-proxy-middleware(跨域)
+  mockjs
+  validator(验证相关)
+  lodash(验证相关)
 ```

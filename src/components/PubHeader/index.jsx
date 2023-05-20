@@ -7,7 +7,7 @@ const PubHeader = (props)=>{
   const navigate = useNavigate()
 
   function backHandle(){
-    navigate("/")
+    navigate(-1)
   }
 
   return(
