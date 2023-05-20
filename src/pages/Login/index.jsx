@@ -10,6 +10,7 @@ const Login = ()=>{
 
   function loginHandle(user){
     dispatch(loginActions.setLogin(user))
+    localStorage.setItem("goodlive",JSON.stringify(user))
     navigator(-1)
   }
 

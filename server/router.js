@@ -3,6 +3,8 @@ const router = express.Router()
 const homehot = require("./data/home/homeHot")
 const searchData = require("./data/search")
 const detailsData = require('./data/details')
+const commentData = require("./data/comment")
+const OrderCommentData = require('./data/order')
 
 const url = require("url")
 const Mock = require("mockjs")
@@ -72,6 +74,33 @@ router.post("/login",(req,res)=>{
       msg:'用户名和密码错误'
     })
   }
+})
+
+router.get("/comment",(req,res)=>{
+  const id = url.parse(req.url,true).query.id
+  console.log(id)
+  res.send({
+    status:200,
+    result:commentData
+  })
+})
+
+router.get("/order/comment",(req,res)=>{
+  const username = url.parse(req.url,true).query.username
+  console.log(username)
+  res.send({
+    status:200,
+    result:OrderCommentData
+  })
+})
+
+router.post("/order/submit/comment",(req,res)=>{
+  const {username,id,content} = req.body
+  console.log(username,id,content)
+  res.send({
+    status:200,
+    msg:'评价成功'
+  })
 })
 
 

@@ -7,6 +7,7 @@ import City from "../pages/City";
 import Search from "../pages/Search";
 import Details from "../pages/Details";
 import Login from "../pages/Login";
+import Order from "../pages/Order";
 
 import Layout from "../pages/Layout";
 
@@ -17,6 +18,7 @@ const AppRouter = ()=>{
         <Route path="/city" element={<City />} />
         <Route path="/details/:id" element={<Details />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/order" element={<Order />} />
         <Route path="/search/:keywords" element={<Search />} />
         <Route path="/*" element={<Layout />} />   
       </Routes>

@@ -10,7 +10,10 @@ const path = {
   cityUrl:"/api/aj/getcitycode",
   search:"/api/search",
   details:"/api/details",
-  login:"/api/login"
+  login:"/api/login",
+  comment:"/api/comment",
+  commentOrder:"/api/order/comment",
+  submitComment:"/api/order/submit/comment"
 }
 
 const api  = {
@@ -44,6 +47,22 @@ const api  = {
 
   login(params){
     return axios.post(base.baseUrl+path.login,params)
+  },
+
+  comment(params){
+    return axios.get(base.baseUrl+path.comment,{
+      params
+    })
+  },
+
+  commentOrder(params){
+    return axios.get(base.baseUrl+path.commentOrder,{
+      params
+    })
+  },
+
+  submitComment(params){
+    return axios.post(base.baseUrl+path.submitComment,params)
   }
 }
 
