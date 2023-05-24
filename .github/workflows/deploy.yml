@@ -1,32 +1,69 @@
-name: Deploy GitHub Pages
+# 选项卡的工作流名称
+name: GoodLive Pages
 
-# 触发条件：在 push 到 master 分支后
+# 定义工作流触发的事件
 on:
+  # 要从ui手动运行此工作流
   workflow_dispatch:
+  # 添加 push 事件，以便每次将提交推送到名为 main 的分支时，工作流都会自动运行
   push:
     branches:
       - main
+  # 添加 pull_request 事件，以便每次创建或更新拉取请求时，工作流都会自动运行
+  pull_request:
 
-# 任务
+# 修改授予 GITHUB_TOKEN 的默认权限
+permissions:
+  contents: read
+  pull-requests: read
+
+# 为特定事件创建并发组，并使用 || 运算符定义回退值（取消同一并发组中任何当前正在运行的作业或工作流）
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+# 将工作流文件中运行的所有作业组合在一起
 jobs:
-  build-and-deploy:
-    # 服务器环境：最新版 Ubuntu
-    runs-on: ubuntu-latest
+  check-links:
+    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     steps:
-      # 拉取代码
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          persist-credentials: false
 
-      # 生成静态文件
-      - name: Build
-        run: npm install && npm run docs:build
-
-      # 部署到 GitHub Pages
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: docs/.vuepress/dist
+          node-version: 16.13.x
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # Creates file "$/files.json", among others
+      - name: Gather files changed
+        uses: trilom/file-changes-action@a6ca26c14274c33b15e6499323aac178af06ad4b
+        with:
+          fileOutput: 'json'
+
+      # For verification
+      - name: Show files changed
+        run: cat $HOME/files.json
+
+      - name: Link check (warnings, changed files)
+        run: |
+          ./script/rendered-content-link-checker.mjs \
+            --language en \
+            --max 100 \
+            --check-anchors \
+            --check-images \
+            --verbose \
+            --list $HOME/files.json
+
+      - name: Link check (critical, all files)
+        run: |
+          ./script/rendered-content-link-checker.mjs \
+            --language en \
+            --exit \
+            --verbose \
+            --check-images \
+            --level critical
