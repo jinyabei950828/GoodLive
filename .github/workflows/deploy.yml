@@ -18,52 +18,30 @@ permissions:
   pull-requests: read
 
 # 为特定事件创建并发组，并使用 || 运算符定义回退值（取消同一并发组中任何当前正在运行的作业或工作流）
-concurrency:
-  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
-  cancel-in-progress: true
+
 
 # 将工作流文件中运行的所有作业组合在一起
 jobs:
   check-links:
-    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
-      - name: Setup node
-        uses: actions/setup-node@v3
+      - name: install node
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: 16.13.x
           cache: npm
-
-      - name: Install
-        run: npm ci
-
-      # Creates file "$/files.json", among others
-      - name: Gather files changed
-        uses: trilom/file-changes-action@a6ca26c14274c33b15e6499323aac178af06ad4b
+        
+      - name: GetLastLog
+        id: git_log
+        uses: Edisonboy/lastest-git-log-action@main
         with:
-          fileOutput: 'json'
+          tag: origin/main
 
-      # For verification
-      - name: Show files changed
-        run: cat $HOME/files.json
+      - name: npm install and build
+        run: npm install
+             npm run build    
 
-      - name: Link check (warnings, changed files)
-        run: |
-          ./script/rendered-content-link-checker.mjs \
-            --language en \
-            --max 100 \
-            --check-anchors \
-            --check-images \
-            --verbose \
-            --list $HOME/files.json
-
-      - name: Link check (critical, all files)
-        run: |
-          ./script/rendered-content-link-checker.mjs \
-            --language en \
-            --exit \
-            --verbose \
-            --check-images \
-            --level critical
+        
+  
